@@ -8,14 +8,10 @@
         <b-navbar-nav>
           <b-nav-item to="/#"><i class="fa fa-home" style="padding: 5px"> Home</i></b-nav-item>
           <b-nav-item to="/cosmetics"><i class="fa fa-list" style="padding: 5px"> Manage Cosmetics</i></b-nav-item>
-          <b-nav-item to="/donate"><i class="fa fa-money" style="padding: 5px"> Donate</i></b-nav-item>
-          <b-nav-item to="/map"><i class="fa fa-globe" style="padding: 5px"> Map</i></b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/about"><i class="fa fa-info" style="padding: 5px"> About Us</i></b-nav-item>
-          <b-nav-item to="/register"><i class="fa fa-comment" style="padding: 5px"> Register</i></b-nav-item>
-          <b-nav-item to="/login"><i class="fa fa-sign-in" style="padding: 5px"> Login </i></b-nav-item>
-          <b-nav-item to="/logout"><i class="fa fa-sign-out" style="padding: 5px"> Logout </i></b-nav-item>
+          <b-nav-item to="/login" v-if="(islogin == false)" @click="login"><i class="fa fa-sign-in" style="padding: 5px"> Login </i></b-nav-item>
+          <b-nav-item to="/logout" @click="logout" v-if="(islogin != false)"><i class="fa fa-sign-out" style="padding: 5px"> Logout </i></b-nav-item>
           <i class="fa fa-pied-piper-alt fa-1x" style="padding: 5px; color: white;"></i>
         </b-navbar-nav>
       </b-collapse>
@@ -26,7 +22,43 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      islogin: false
+    }
+  },
+  methods: {
+    login () {
+      this.islogin = true
+    },
+    logout () {
+      this.$swal({
+        title: 'Logout',
+        text: 'Are you sure?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Logout',
+        cancelButtonText: 'Cancel',
+        showCloseButton: true
+        // showLoaderOnConfirm: true
+      }).then((result) => {
+        console.log('SWAL Result : ' + result.value)
+        if (result.value === true) {
+          sessionStorage.removeItem('token')
+          this.islogin = false
+          // sessionStorage.setItem('isLogin', false)
+          this.$swal('Logout', 'You successfully logout ', 'success')
+          setTimeout(() => {
+            this.$router.push('/')
+          }, 1000)
+        } else {
+          console.log('SWAL Else Result : ' + result.value)
+          this.$swal('Cancelled', 'You still in logging status!', 'info')
+        }
+      })
+    }
+  }
 }
 </script>
 

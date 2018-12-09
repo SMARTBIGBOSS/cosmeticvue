@@ -28,17 +28,19 @@ export default {
       cosmetics: [],
       props: ['_id'],
       errors: [],
-      columns: ['_id', 'name', 'brand', 'price', 'publisher', 'edit', 'remove'],
+      columns: ['_id', 'cosmeticId', 'name', 'brand', 'price', 'publisher', 'release_date', 'edit', 'remove'],
       options: {
         perPage: 10,
         filterable: ['name', 'brand'],
         sortable: ['price'],
         headings: {
           _id: 'ID',
+          cosmeticId: 'Cosmetic ID',
           name: 'Name',
           brand: 'Brand',
           price: 'Price',
-          publisher: 'Seller'
+          publisher: 'Seller',
+          release_date: 'Release Date'
         }
       }
     }
@@ -84,7 +86,7 @@ export default {
           console.log(error)
         })
     },
-    editCosmetic: function (id, publisher) {
+    editCosmetic: function (id) {
       this.$router.params = id
       // this.$router.params.publisher = publisher
       this.$router.push('edit')

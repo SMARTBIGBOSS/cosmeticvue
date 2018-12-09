@@ -1,5 +1,11 @@
 <template>
   <form @submit.prevent="submit">
+    <div class="form-group" :class="{ 'form-group--error': $v.cosmeticId.$error }">
+      <label class="form-label" name="cosmeticId">Cosmetic ID</label>
+      <input class="form__input" type="text" v-model.trim="cosmeticId"/>
+    </div>
+    <div class="error" v-if="!$v.cosmeticId.required">Name is Required</div>
+
     <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
       <label class="form-label" name="name">Cosmetic name</label>
       <input class="form__input" type="text" v-model.trim="name"/>
@@ -32,7 +38,7 @@
     <p>
       <a href="#/cosmetics" class="btn btn-primary btn1" role="button">Manage Cosmetic</a>
     </p>
-    <p class="typo__p" v-if="submitStatus === 'OK'">Add a Cosmetic Successfully!</p>
+    <p class="typo__p" v-if="submitStatus === 'OK'" >Add a Cosmetic Successfully!</p>
     <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
     <p class="typo__p" v-if="submitStatus === 'PENDING'">Adding...</p>
   </form>
@@ -59,6 +65,7 @@ export default {
   data () {
     return {
       messagetitle: ' Add a Cosmetic ',
+      cosmeticId: this.cosmetic.cosmeticId,
       name: this.cosmetic.name,
       brand: this.cosmetic.brand,
       price: this.cosmetic.price,
@@ -67,6 +74,9 @@ export default {
     }
   },
   validations: {
+    cosmeticId: {
+      required
+    },
     name: {
       required,
       maxLength: maxLength(50)
@@ -94,6 +104,7 @@ export default {
         setTimeout(() => {
           this.submitStatus = 'OK'
           var cosmetic = {
+            cosmeticId: this.cosmeticId,
             name: this.name,
             brand: this.brand,
             price: this.price,

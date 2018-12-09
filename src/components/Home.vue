@@ -1,23 +1,19 @@
 <template>
   <div class="hero">
-    <h1 class="vue-title">Homer for President !!</h1>
+    <h1 class="vue-title">Cosmetic Home</h1>
 
     <table align="center">
       <tr>
         <td>
-          <p class="lead"><b><i>Time for a change !!</i></b>
-          <p>Out with Boring Prumt - Giving has never been so easy.</p>
-          <p>Just click <a href ="/donate">here</a> to go to</p>
-          <p>the Donation page and empty your wallet</p>
+          <p class="lead"><b><i>Time to View !!</i></b>
+          <p>If you want to view, please login first.</p>
+          <p>Just click <a href ="/login">here</a> to start</p>
         </td>
         <td>
           <img src="../assets/homer.gif" alt="description here" />
         </td>
       </tr>
     </table>
-
-    <p></p>
-    <p class="lead">This is the homepage of your <b>MEVN</b> Web app</p>
   </div>
 </template>
 

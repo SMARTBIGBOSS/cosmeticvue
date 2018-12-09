@@ -8,7 +8,8 @@ import Edit from '@/components/Edit'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -18,23 +19,52 @@ export default new Router({
     {
       path: '/cosmetics',
       name: 'Cosmetics',
-      component: Cosmetic
+      component: Cosmetic,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta: {
+        guest: true
+      }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: {
+        guest: true
+      }
     },
     {
       path: '/edit',
       name: 'Edit',
       component: Edit,
-      props: true
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (sessionStorage.getItem('token') == null) {
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

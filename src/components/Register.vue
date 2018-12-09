@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import CustomerService from '@/services/CustomerService'
+// import SellerService from '@/services/SellerService'
 import Vue from 'vue'
 import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'
@@ -66,10 +66,10 @@ export default {
   },
   methods: {
     register: function () {
-      CustomerService.postCustomer()
-        .then(response => {
-          console.log(response)
-        })
+      // CustomerService.postCustomer()
+      //   .then(response => {
+      //     console.log(response)
+      //   })
     }
   }
 }
