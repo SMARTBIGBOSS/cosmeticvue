@@ -1,0 +1,18 @@
+dist: trusty
+language: node_js
+node_js:
+- stable
+before_script:
+- npm install -g httpserver
+- npm run custom-build
+- cd dist && httpserver -p 8080 &
+script:
+- npx cypress run
+branches:
+ only: master
+notifications:
+ email:
+    recipients:
+    - 425765498@qq.com
+    on_success: never        
+    on_failure: always
