@@ -1,8 +1,4 @@
 describe('Manage Cosmetics page', () => {
-  afterEach(() => {
-    cy.get('.ml-auto > .nav-item > .nav-link > .fa').click()
-    cy.get('.swal2-confirm').click()
-  })
   beforeEach(() => {
     // Delete all donations in the API's datastore
     cy.request('http://localhost:3000/cosmetics')
@@ -28,8 +24,33 @@ describe('Manage Cosmetics page', () => {
     cy.get('.btn').click()
     cy.wait(2000)
   })
+
+  afterEach(() => {
+    // Click Logout navbar link
+    cy.get('.ml-auto > .nav-item > .nav-link > .fa').click()
+    cy.get('.swal2-confirm').click()
+  })
+
   it('Shows a body', () => {
-    cy.get('tbody').find('tr').should('have.length', 2)
+    cy.get('#sortPrice > :nth-child(1)').contains('Sort by High Price')
+    cy.get('#sortPrice > :nth-child(2)').contains('Sort by Low Price')
+    cy.get('.VueTables__name-filter-wrapper > .form-control').should('be.visible')
+    cy.get('.VueTables__brand-filter-wrapper > .form-control').should('be.visible')
+    cy.wait(200)
+    // Sort cosmetics by price
+    cy.get('#sortPrice > :nth-child(1)').click()
+    cy.get('tbody > :nth-child(1) > :nth-child(2)').contains('1004')
+    cy.get('tbody > :nth-child(2) > :nth-child(2)').contains('1003')
+    cy.get('#sortPrice > :nth-child(2)').click()
+    cy.get('tbody > :nth-child(1) > :nth-child(2)').contains('1003')
+    cy.get('tbody > :nth-child(2) > :nth-child(2)').contains('1004')
+    // // Fill the filter
+    cy.get('.VueTables__name-filter-wrapper > .form-control').type(3)
+    cy.wait(200)
+    cy.get('tbody > tr > :nth-child(2)').contains('1003')
+    cy.get('.VueTables__brand-filter-wrapper > .form-control').type(3)
+    cy.wait(200)
+    cy.get('.VueTables__no-results > .text-center').contains('No matching records')
   })
 
   it('Edits a cosmetic', () => {
@@ -85,8 +106,8 @@ describe('Manage Cosmetics page', () => {
     // Click cancel button
     cy.get('button').contains('Cancel').click()
     cy.wait(500)
-    // cy.get('.swal2-cancel').click()
-    // cy.wait(1000)
+    cy.get('.swal2-confirm').click()
+    cy.wait(1000)
     cy.get('tbody').find('tr').should('have.length', 2)
   })
 })
