@@ -100,7 +100,7 @@ describe('Manage Cosmetics page', () => {
     cy.get('tbody').find('tr').should('have.length', 1)
   })
 
-  it('Allows a cosmetic to be deleted', () => {
+  it('Reject a cosmetic to be deleted', () => {
     // Click trash/delete link of 1st cosmetic in list
     cy.get(':nth-child(1) > :nth-child(9) > .fa').click()
     // Click cancel button
