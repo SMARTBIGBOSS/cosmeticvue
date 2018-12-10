@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import CosmeticService from '@/services/CosmeticService'
+import CosmeticService from '@/services/cosmeticservice'
 import CosmeticForm from '@/components/CosmeticForm'
 
 export default {

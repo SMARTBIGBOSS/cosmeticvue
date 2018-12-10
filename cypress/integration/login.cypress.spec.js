@@ -5,11 +5,16 @@ describe('Login page', () => {
     cy.get('.navbar-nav:nth-child(2)').find('.nav-item:first').click()
   })
 
+  after(() => {
+    cy.get('.ml-auto > .nav-item > .nav-link > .fa').click()
+    cy.get('.swal2-confirm').click()
+  })
+
   it('Shows a body', () => {
     cy.get('.vue-title').contains('Login')
   })
 
-  it('allows to login', () => {
+  it('llows to login', () => {
     cy.get('.form-group:nth-child(1)').within(() => {
       cy.get('.form-label').contains('Email')
       cy.get('.form__input').type('Seller@gmail.com')
@@ -20,6 +25,7 @@ describe('Login page', () => {
     })
     cy.get('.btn').click()
     cy.get('.typo__p').contains('Login...').should('exist')
+    cy.wait(1000)
     cy.get('.typo__p').contains('Login Successfully!').should('exist')
     cy.wait(1000)
     cy.url().should('include', '/cosmetic')
@@ -36,7 +42,7 @@ describe('Login page', () => {
     cy.get('.typo__p').contains('Email or Password is Incorrectly.').should('exist')
   })
 
-  it('shows error messages for incomplete form fields', () => {
+  it('Shows error messages for incomplete form fields', () => {
     cy.get('.btn').click()
     cy.get('.error').contains('Email is Required')
     cy.get('.error').contains('Password is Required')
@@ -46,6 +52,4 @@ describe('Login page', () => {
     cy.get('.form-group:nth-child(2) > .form__input').type('123456').blur()
     cy.get('.error').should('not.exist')
   })
-
-
 })

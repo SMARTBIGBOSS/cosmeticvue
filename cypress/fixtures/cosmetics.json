@@ -1,7 +1,5 @@
 [
-    { "paymenttype": "PayPal", "amount": 1600, "upvotes": 1, "message": "Best wishes" }, 
-    { "paymenttype": "Direct", "amount": 1100, "upvotes": 2, "message": "Hope this helps" },
-    { "paymenttype": "PayPal", "amount": 2600, "upvotes": 1, "message": "Glad to support" }, 
-    { "paymenttype": "Direct", "amount": 2100, "upvotes": 2, "message": "Great cause" }
+  {"cosmeticId": "1003", "name": "Cosmetic3", "brand": "MyBrand", "price": 10.00, "publisher": "2000"},
+  {"cosmeticId": "1004", "name": "Cosmetic4", "brand": "MyBrand", "price": 12.00, "publisher": "2000"}
 
 ]

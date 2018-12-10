@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import SellerService from '@/services/SellerService'
+import SellerService from '@/services/sellerservice'
 import Vue from 'vue'
 import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'

@@ -4,7 +4,7 @@
       <label class="form-label" name="cosmeticId">Cosmetic ID</label>
       <input class="form__input" type="text" v-model.trim="cosmeticId"/>
     </div>
-    <div class="error" v-if="!$v.cosmeticId.required">Name is Required</div>
+    <div class="error" v-if="!$v.cosmeticId.required">Cosmetic ID is Required</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
       <label class="form-label" name="name">Cosmetic name</label>
@@ -14,7 +14,7 @@
     <div class="error" v-if="!$v.name.maxLength">Name must have at most {{$v.name.$params.maxLength.max}} letters.</div>
 
     <div class="form-group--error" :class="{ 'form-group--error': $v.brand.$error }">
-      <label class="form-label" name="brand">Brand (required)</label>
+      <label class="form-label" name="brand">Brand</label>
       <input class="form__input" type="text" v-model.trim="brand"/>
     </div>
     <div class="error" v-if="!$v.brand.required">Brand is Required</div>
@@ -34,9 +34,6 @@
 
     <p>
       <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">{{ cosmeticBtnTitle }}</button>
-    </p>
-    <p>
-      <a href="#/cosmetics" class="btn btn-primary btn1" role="button">Manage Cosmetic</a>
     </p>
     <p class="typo__p" v-if="submitStatus === 'OK'" >Add a Cosmetic Successfully!</p>
     <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
@@ -79,7 +76,7 @@ export default {
     },
     name: {
       required,
-      maxLength: maxLength(50)
+      maxLength: maxLength(20)
     },
     brand: {
       required
@@ -114,7 +111,10 @@ export default {
           console.log('Submitting in CosmeticForm : ' +
             JSON.stringify(this.cosmetic, null, 5))
           this.$emit('cosmetic-is-created-updated', this.cosmetic)
-        }, 500)
+        }, 300)
+        setTimeout(() => {
+          this.$router.push('/cosmetics')
+        }, 1000)
       }
     }
   }
